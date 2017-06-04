@@ -9,6 +9,7 @@ class Wintab
 public:
     static BOOL Load();
     static void Unload();
+    static bool HasLoaded() { return library_ != nullptr; }
 
     static UINT WTInfo(UINT wCategory, UINT nIndex, LPVOID lpOutput);
     static HCTX WTOpen(HWND hWnd, LPLOGCONTEXT lpLogCtx, BOOL fEnable);
@@ -28,8 +29,6 @@ public:
     static int  WTPacketsGet(HCTX hCtx, int cMaxPkts, LPVOID lpPkts);
 
 private:
-    static bool HasLoaded() { return library_ != nullptr; }
-
     template <class FuncType>
     static bool GetWintabProc(FuncType& pFunc, LPCSTR name)
     {

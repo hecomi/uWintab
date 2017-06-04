@@ -14,6 +14,8 @@ public:
 
     enum class CursorType
     {
+        Invalid = -1,
+        // ---
         Cursor = 0,
         Pen = 1,
         TailSwitch = 2,
@@ -68,7 +70,7 @@ public:
     float GetTwist() const;
     UINT GetPenId() const;
     CursorType GetCursor() const;
-    DWORD GetTimestamp() const;
+    DWORD GetTime() const;
     bool GetProximity() const;
     bool GetButton(USHORT id) const;
     bool GetButtonDown(USHORT id) const;
@@ -76,9 +78,6 @@ public:
     bool GetExpKey(USHORT tabletId, USHORT controlId) const;
     bool GetExpKeyDown(USHORT tabletId, USHORT controlId) const;
     bool GetExpKeyUp(USHORT tabletId, USHORT controlId) const;
-    bool GetExpKey(USHORT id) const;
-    bool GetExpKeyDown(USHORT id) const;
-    bool GetExpKeyUp(USHORT id) const;
 
 private:
     bool FindExtension(UINT extension, UINT &index);

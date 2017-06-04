@@ -358,7 +358,7 @@ Tablet::CursorType Tablet::GetCursor() const
 }
 
 
-DWORD Tablet::GetTimestamp() const
+DWORD Tablet::GetTime() const
 {
     return packet_.pkTime;
 }
@@ -427,22 +427,4 @@ bool Tablet::GetExpKeyUp(USHORT tabletId, USHORT controlId) const
     using State = ExpKeyState;
     const auto &state = expKeys_.at(tabletId).at(controlId);
     return state == State::Released;
-}
-
-
-bool Tablet::GetExpKey(USHORT id) const
-{
-    return GetExpKey(0, id);
-}
-
-
-bool Tablet::GetExpKeyDown(USHORT id) const
-{
-    return GetExpKeyDown(0, id);
-}
-
-
-bool Tablet::GetExpKeyUp(USHORT id) const
-{
-    return GetExpKeyDown(0, id);
 }

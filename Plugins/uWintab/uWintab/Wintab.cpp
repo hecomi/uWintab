@@ -31,7 +31,7 @@ BOOL Wintab::Load()
 {
     if (HasLoaded()) return FALSE;
 
-	library_ = LoadLibraryA(kDllName);
+	library_ = LoadLibrary(kDllName);
 	if (!library_)
 	{
 		const auto err = GetLastError();
