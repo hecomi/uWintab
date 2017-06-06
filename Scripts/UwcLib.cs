@@ -27,17 +27,15 @@ public static class Lib
     public const string name = "uWintab";
 
     [DllImport(name, EntryPoint = "UwtInitialize")]
-    public static extern void Initialize(IntPtr hWnd);
+    public static extern void Initialize();
     [DllImport(name, EntryPoint = "UwtFinalize")]
     public static extern void Finalize();
     [DllImport(name, EntryPoint = "UwtGetWndProc")]
     public static extern IntPtr GetWndProc();
     [DllImport(name, EntryPoint = "UwtSetUnityWndProc")]
     public static extern void SetUnityWndProc(IntPtr wndProc);
-    [DllImport(name, EntryPoint = "UwtUpdate")]
-    public static extern void Update();
     [DllImport(name, EntryPoint = "UwtGetDeviceName")]
-    public static extern void GetDeviceName();
+    private static extern void GetDeviceName(StringBuilder buf, int len);
     [DllImport(name, EntryPoint = "UwtIsPressureSupported")]
     public static extern bool IsPressureSupported();
     [DllImport(name, EntryPoint = "UwtIsWheelSupported")]
@@ -47,7 +45,7 @@ public static class Lib
     [DllImport(name, EntryPoint = "UwtIsExpKeysSupported")]
     public static extern bool IsExpKeysSupported();
     [DllImport(name, EntryPoint = "UwtGetVersion")]
-    public static extern void GetVersion();
+    private static extern void GetVersion(StringBuilder buf, int len);
     [DllImport(name, EntryPoint = "UwtGetDeviceNum")]
     public static extern int GetDeviceNum();
     [DllImport(name, EntryPoint = "UwtGetExpKeyNum")]
@@ -86,29 +84,20 @@ public static class Lib
     public static extern bool GetExpKeyDown(int tabletId, int controlId);
     [DllImport(name, EntryPoint = "UwtGetExpKeyUp")]
     public static extern bool GetExpKeyUp(int tabletId, int controlId);
-}
 
-public static class Win32API
-{
-    public const int GWLP_WNDPROC = -4;
-    public delegate bool EnumWindowsDelegate(IntPtr hWnd, IntPtr lp);
+    public static string GetDeviceName()
+    {
+        var buf = new StringBuilder(64);
+        GetDeviceName(buf, buf.Capacity);
+        return buf.ToString();
+    }
 
-    [DllImport("user32.dll")]
-    public static extern IntPtr GetActiveWindow();
-    [DllImport("user32.dll")]
-    public static extern IntPtr GetForegroundWindow();
-    [DllImport("user32.dll")]
-    public static extern IntPtr GetWindowLongPtr(IntPtr hWnd, int index);
-    [DllImport("user32.dll")]
-    public static extern IntPtr SetWindowLongPtr(IntPtr hWnd, int index, IntPtr value);
-    [DllImport("user32.dll")]
-    public extern static bool EnumWindows(EnumWindowsDelegate lpEnumFunc, IntPtr lp);
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int length);
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    public static extern int GetWindowTextLength(IntPtr hWnd);
-    [DllImport("user32.dll")]
-    public static extern int GetWindowThreadProcessId(IntPtr hWnd, out int processId);
+    public static string GetVersion()
+    {
+        var buf = new StringBuilder(16);
+        GetVersion(buf, buf.Capacity);
+        return buf.ToString();
+    }
 }
 
 }
