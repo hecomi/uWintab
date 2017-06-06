@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Runtime.InteropServices;
 
 #pragma warning disable 114, 465
@@ -30,10 +29,6 @@ public static class Lib
     public static extern void Initialize();
     [DllImport(name, EntryPoint = "UwtFinalize")]
     public static extern void Finalize();
-    [DllImport(name, EntryPoint = "UwtGetWndProc")]
-    public static extern IntPtr GetWndProc();
-    [DllImport(name, EntryPoint = "UwtSetUnityWndProc")]
-    public static extern void SetUnityWndProc(IntPtr wndProc);
     [DllImport(name, EntryPoint = "UwtGetDeviceName")]
     private static extern void GetDeviceName(StringBuilder buf, int len);
     [DllImport(name, EntryPoint = "UwtIsPressureSupported")]

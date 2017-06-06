@@ -229,12 +229,6 @@ extern "C"
     }
 
 
-    UNITY_INTERFACE_EXPORT WNDPROC UNITY_INTERFACE_API UwtGetWndProc()
-    {
-        return (WNDPROC)UwtWndProc;
-    }
-
-
     UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API UwtGetDeviceName(char* buf, int len)
     {
         if (!g_tablet) return;
