@@ -81,9 +81,9 @@ public:
 
 private:
     bool FindExtension(UINT extension, UINT &index);
-    template <class T> 
+    template <class T>
     T ExtGet(UINT extension, BYTE tabletId, BYTE controlId, BYTE functionId, WORD property);
-    template <class T> 
+    template <class T>
     bool ExtSet(UINT extension, BYTE tabletId, BYTE controlId, BYTE functionId, WORD property, T value);
     void InitExpKeys();
     bool IsValidButton(USHORT id) const;

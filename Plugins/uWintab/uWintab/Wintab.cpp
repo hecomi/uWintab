@@ -31,13 +31,13 @@ BOOL Wintab::Load()
 {
     if (HasLoaded()) return FALSE;
 
-	library_ = LoadLibrary(kDllName);
-	if (!library_)
-	{
-		const auto err = GetLastError();
+    library_ = LoadLibrary(kDllName);
+    if (!library_)
+    {
+        const auto err = GetLastError();
         // TODO: Output error
-		return FALSE;
-	}
+        return FALSE;
+    }
 
 #define UWT_TO_STR2(Name) #Name
 #define UWT_TO_STR(Name) UWT_TO_STR(Name)
@@ -45,23 +45,23 @@ BOOL Wintab::Load()
     if (!Wintab::GetWintabProc(Type##_, UWT_TO_STR2(Type))) return FALSE;
 
     UWT_LOADFUNC(WTInfo)
-    UWT_LOADFUNC(WTOpen)
-    UWT_LOADFUNC(WTGet)
-    UWT_LOADFUNC(WTSet)
-    UWT_LOADFUNC(WTClose)
-    UWT_LOADFUNC(WTPacket)
-    UWT_LOADFUNC(WTEnable)
-    UWT_LOADFUNC(WTOverlap)
-    UWT_LOADFUNC(WTSave)
-    UWT_LOADFUNC(WTConfig)
-    UWT_LOADFUNC(WTRestore)
-    UWT_LOADFUNC(WTExtSet)
-    UWT_LOADFUNC(WTExtGet)
-    UWT_LOADFUNC(WTQueueSizeSet)
-    UWT_LOADFUNC(WTDataPeek)
-    UWT_LOADFUNC(WTPacketsGet)
+        UWT_LOADFUNC(WTOpen)
+        UWT_LOADFUNC(WTGet)
+        UWT_LOADFUNC(WTSet)
+        UWT_LOADFUNC(WTClose)
+        UWT_LOADFUNC(WTPacket)
+        UWT_LOADFUNC(WTEnable)
+        UWT_LOADFUNC(WTOverlap)
+        UWT_LOADFUNC(WTSave)
+        UWT_LOADFUNC(WTConfig)
+        UWT_LOADFUNC(WTRestore)
+        UWT_LOADFUNC(WTExtSet)
+        UWT_LOADFUNC(WTExtGet)
+        UWT_LOADFUNC(WTQueueSizeSet)
+        UWT_LOADFUNC(WTDataPeek)
+        UWT_LOADFUNC(WTPacketsGet)
 
-    return TRUE;
+        return TRUE;
 }
 
 
@@ -70,7 +70,7 @@ void Wintab::Unload()
     if (!HasLoaded()) return;
 
     FreeLibrary(library_);
-	library_ = nullptr;
+    library_ = nullptr;
 
     WTInfo_ = nullptr;
     WTOpen_ = nullptr;

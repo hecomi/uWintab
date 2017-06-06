@@ -31,8 +31,8 @@ Tablet::Tablet()
     Wintab::WTInfo(WTI_INTERFACE, IFC_NDEVICES, &deviceNum_);
 
     // Get device size
-	Wintab::WTInfo(WTI_DEVICES, DVC_X, &coordX_);
-	Wintab::WTInfo(WTI_DEVICES, DVC_Y, &coordY_);
+    Wintab::WTInfo(WTI_DEVICES, DVC_X, &coordX_);
+    Wintab::WTInfo(WTI_DEVICES, DVC_Y, &coordY_);
 
     // Get min/max vlaues
     AXIS orientation[3];
@@ -72,7 +72,7 @@ bool Tablet::FindExtension(UINT extension, UINT &index)
 }
 
 
-template <class T> 
+template <class T>
 T Tablet::ExtGet(UINT extension, BYTE tabletId, BYTE controlId, BYTE functionId, WORD property)
 {
     EXTPROPERTY prop;
@@ -93,7 +93,7 @@ T Tablet::ExtGet(UINT extension, BYTE tabletId, BYTE controlId, BYTE functionId,
 }
 
 
-template <class T> 
+template <class T>
 bool Tablet::ExtSet(UINT extension, BYTE tabletId, BYTE controlId, BYTE functionId, WORD property, T value)
 {
     EXTPROPERTY prop;
@@ -112,20 +112,20 @@ bool Tablet::ExtSet(UINT extension, BYTE tabletId, BYTE controlId, BYTE function
 
 void Tablet::Open(HWND hwnd)
 {
-	LOGCONTEXT context;
-	Wintab::WTInfo(WTI_DEFCONTEXT, 0, &context);
+    LOGCONTEXT context;
+    Wintab::WTInfo(WTI_DEFCONTEXT, 0, &context);
     wsprintf(context.lcName, kLibraryName);
-	context.lcOptions |= CXO_MESSAGES;
+    context.lcOptions |= CXO_MESSAGES;
     context.lcPktData = PACKETDATA | expKeysMask_;
-	context.lcPktMode = PACKETMODE;
-	context.lcMoveMask = PACKETDATA;
-	context.lcBtnUpMask = context.lcBtnDnMask;
-	context.lcInOrgX = coordX_.axMin;
-	context.lcInOrgY = coordY_.axMin;
-	context.lcInExtX = coordX_.axMax;
-	context.lcInExtY = coordY_.axMax;
+    context.lcPktMode = PACKETMODE;
+    context.lcMoveMask = PACKETDATA;
+    context.lcBtnUpMask = context.lcBtnDnMask;
+    context.lcInOrgX = coordX_.axMin;
+    context.lcInOrgY = coordY_.axMin;
+    context.lcInExtX = coordX_.axMax;
+    context.lcInExtY = coordY_.axMax;
 
-	context_ = Wintab::WTOpen(hwnd, &context, TRUE);
+    context_ = Wintab::WTOpen(hwnd, &context, TRUE);
 
     InitExpKeys();
 }
@@ -233,16 +233,16 @@ void Tablet::UpdateButtonState()
     auto &state = buttons_.at(id);
     switch (HIWORD(packet_.pkButtons))
     {
-        case 1: // off
-        {
-            state = State::Released;
-            break;
-        }
-        case 2: // on
-        {
-            state = State::Pressed;
-            break;
-        }
+    case 1: // off
+    {
+        state = State::Released;
+        break;
+    }
+    case 2: // on
+    {
+        state = State::Pressed;
+        break;
+    }
     }
 }
 
@@ -266,30 +266,30 @@ void Tablet::UpdateExpKeyState()
     auto &state = expKeys_.at(tabletId).at(controlId);
     switch (packetExt_.pkExpKeys.nState)
     {
-        case 0: // off
+    case 0: // off
+    {
+        if (state == State::Released)
         {
-            if (state == State::Released)
-            {
-                state = State::Off;
-            }
-            else if (state != State::Off)
-            {
-                state = State::Released;
-            }
-            break;
+            state = State::Off;
         }
-        case 1: // on
+        else if (state != State::Off)
         {
-            if (state == State::Pressed)
-            {
-                state = State::On;
-            }
-            else if (state != State::On)
-            {
-                state = State::Pressed;
-            }
-            break;
+            state = State::Released;
         }
+        break;
+    }
+    case 1: // on
+    {
+        if (state == State::Pressed)
+        {
+            state = State::On;
+        }
+        else if (state != State::On)
+        {
+            state = State::Pressed;
+        }
+        break;
+    }
     }
 }
 
