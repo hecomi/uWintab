@@ -20,7 +20,7 @@ void Debug::Initialize()
 
     if (mode_ == Mode::File)
     {
-        fs_.open("uWindowCapture.log");
+        fs_.open("uWintab.log");
         Debug::Log("Start");
     }
 }

@@ -117,7 +117,7 @@ public:
     static void Log(Arg&& arg, RestArgs&&... restArgs)
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        Output("[uWC::Log]");
+        Output("[uWt::Log]");
         OutputTime();
         Output(" ");
         _Log(Level::Log, std::forward<Arg>(arg), std::forward<RestArgs>(restArgs)...);
@@ -127,7 +127,7 @@ public:
     static void Error(Arg&& arg, RestArgs&&... restArgs)
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        Output("[uWC::Err]");
+        Output("[uWt::Err]");
         OutputTime();
         Output(" ");
         _Log(Level::Error, std::forward<Arg>(arg), std::forward<RestArgs>(restArgs)...);
