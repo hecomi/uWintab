@@ -1,6 +1,4 @@
-#include <iostream>
-#include <windows.h>
-#include <string>
+#include <Windows.h>
 #include <memory>
 #include <thread>
 #include <Unity/IUnityInterface.h>
