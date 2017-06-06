@@ -11,10 +11,6 @@
 
 
 
-namespace
-{
-
-
 std::unique_ptr<Tablet> g_tablet;
 HINSTANCE g_hInst = nullptr;
 HWND g_hWnd = nullptr;
@@ -23,22 +19,28 @@ std::thread g_thread;
 
 int WINAPI DllMain(HINSTANCE hInst, DWORD fdReason, PVOID pvReserved)
 {
-    switch (fdReason) 
+    switch (fdReason)
     {
         case DLL_PROCESS_ATTACH:
+        {
             g_hInst = hInst;
             break;
+        }
         case DLL_PROCESS_DETACH:
+        {
             g_hInst = nullptr;
             break;
+        }
         default:
+        {
             break;
+        }
     }
     return TRUE;
 }
 
 
-LRESULT CALLBACK UwtWndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp) 
+LRESULT CALLBACK UwtWndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
 {
     switch (msg)
     {
@@ -63,50 +65,12 @@ LRESULT CALLBACK UwtWndProc(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp)
         case WM_ACTIVATE:
         {
             const auto state = GET_WM_ACTIVATE_STATE(wp, lp);
-            if (state) 
+            if (state)
             {
                 g_tablet->Overwrap();
             }
             break;
         }
-#if 0
-        case WM_PAINT:
-        {
-            std::string text;
-            text += "version: " + g_tablet->GetVersion() + "\n";
-            text += "x: " + std::to_string(g_tablet->GetX()) + "\n";
-            text += "y: " + std::to_string(g_tablet->GetY()) + "\n";
-            text += "azimuth: " + std::to_string(g_tablet->GetAzimuth()) + "\n";
-            text += "altitude: " + std::to_string(g_tablet->GetAltitude()) + "\n";
-            text += "twist: " + std::to_string(g_tablet->GetTwist()) + "\n";
-            text += "pressure: " + std::to_string(g_tablet->GetPressure()) + "\n";
-            text += "proximity: " + std::to_string(g_tablet->GetProximity()) + "\n";
-            text += "time: " + std::to_string(g_tablet->GetTime()) + "\n";
-            text += "pen id: " + std::to_string(g_tablet->GetPenId()) + "\n";
-            text += "cursor: " + std::to_string((UINT)g_tablet->GetCursor()) + "\n";
-            text += "pen button 1: " + std::to_string(g_tablet->GetButton(1)) + "\n";
-            text += "pen button 2: " + std::to_string(g_tablet->GetButton(2)) + "\n";
-            text += "func key 0: " + std::to_string(g_tablet->GetExpKey(0, 0)) + "\n";
-            text += "func key 1: " + std::to_string(g_tablet->GetExpKey(0, 1)) + "\n";
-            text += "func key 2: " + std::to_string(g_tablet->GetExpKey(0, 2)) + "\n";
-            text += "func key 3: " + std::to_string(g_tablet->GetExpKey(0, 3)) + "\n";
-            text += "func key 4: " + std::to_string(g_tablet->GetExpKey(0, 4)) + "\n";
-            text += "func key 5: " + std::to_string(g_tablet->GetExpKey(0, 5)) + "\n";
-            text += "func key 6: " + std::to_string(g_tablet->GetExpKey(0, 6)) + "\n";
-            text += "func key 7: " + std::to_string(g_tablet->GetExpKey(0, 7)) + "\n";
-
-            PAINTSTRUCT ps;
-            auto hdc = ::BeginPaint(hWnd, &ps);
-            {
-                RECT rect;
-                ::GetClientRect(hWnd, &rect);
-                ::DrawText(hdc, text.c_str(), static_cast<int>(text.size()), &rect, DT_WORDBREAK);
-            }
-            ::EndPaint(hWnd, &ps);
-
-            break;
-        }
-#endif
         case WT_PACKET:
         {
             g_tablet->ReceivePacket(lp, wp);
@@ -187,7 +151,7 @@ void UwtThreadFunc()
 
 void UwtCreateWindow()
 {
-    g_thread = std::thread([] 
+    g_thread = std::thread([]
     {
         UwtThreadFunc();
     });
@@ -201,9 +165,6 @@ void UwtDestroyWindow()
     {
         g_thread.join();
     }
-}
-
-
 }
 
 
