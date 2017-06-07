@@ -3,7 +3,7 @@
 namespace uWintab
 {
 
-public class UwcTablet : MonoBehaviour 
+public class Tablet : MonoBehaviour 
 {
     void OnEnable()
     {

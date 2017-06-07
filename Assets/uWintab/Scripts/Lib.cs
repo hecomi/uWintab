@@ -35,7 +35,7 @@ public static class Lib
     public static extern bool IsPressureSupported();
     [DllImport(name, EntryPoint = "UwtIsWheelSupported")]
     public static extern bool IsWheelSupported();
-    [DllImport(name, EntryPoint = "UwtOrientationSupported")]
+    [DllImport(name, EntryPoint = "UwtIsOrientationSupported")]
     public static extern bool IsOrientationSupported();
     [DllImport(name, EntryPoint = "UwtIsExpKeysSupported")]
     public static extern bool IsExpKeysSupported();
