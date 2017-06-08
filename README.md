@@ -2,6 +2,8 @@ uWintab
 =======
 **uWintab** is a Wintab API plugin for Unity.
 
+![uWintab](https://raw.githubusercontent.com/wiki/hecomi/uWintab/uWintab.gif)
+
 License
 -------
 The MIT License (MIT)
