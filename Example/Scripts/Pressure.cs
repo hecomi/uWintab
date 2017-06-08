@@ -14,14 +14,14 @@ public class Pressure : MonoBehaviour
     {
         tablet_ = FindObjectOfType<Tablet>();
     }
-	
-	void LateUpdate() 
-	{
+
+    void LateUpdate()
+    {
         transform.localPosition = pen.localPosition;
 
         var pressure = tablet_.pressure;
         transform.localScale = new Vector3(pressure, 1f, pressure);
-	}
+    }
 }
 
 }
