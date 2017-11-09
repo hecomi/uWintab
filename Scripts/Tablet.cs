@@ -15,6 +15,11 @@ public class Tablet : MonoBehaviour
         Lib.Finalize();
     }
 
+    public bool isAvailable
+    {
+        get { return Lib.IsAvailable(); }
+    }
+
     public string deviceName
     {
         get { return Lib.GetDeviceName(); }
