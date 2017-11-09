@@ -93,7 +93,7 @@ void Wintab::Unload()
 
 UINT Wintab::WTInfo(UINT wCategory, UINT nIndex, LPVOID lpOutput)
 {
-    if (!HasLoaded()) return -1;
+    if (!HasLoaded()) return FALSE;
     return WTInfo_(wCategory, nIndex, lpOutput);
 }
 

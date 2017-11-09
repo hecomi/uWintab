@@ -20,6 +20,7 @@ public class TabletInformation : MonoBehaviour
         if (!tablet_ || !uiText_) return;
 
         string str = "";
+        str += "state: " + (tablet_.isAvailable ? "Connected" : "Not Connected") + "\n";
         str += "name: " + tablet_.deviceName + "\n";
         str += "version: " + tablet_.version + "\n";
         str += "isPressureSupported: " + tablet_.isPressureSupported + "\n";

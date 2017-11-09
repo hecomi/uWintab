@@ -25,6 +25,8 @@ public static class Lib
 {
     public const string name = "uWintab";
 
+    [DllImport(name, EntryPoint = "UwtIsAvailable")]
+    public static extern bool IsAvailable();
     [DllImport(name, EntryPoint = "UwtInitialize")]
     public static extern void Initialize();
     [DllImport(name, EntryPoint = "UwtFinalize")]

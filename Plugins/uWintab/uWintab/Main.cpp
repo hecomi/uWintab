@@ -158,6 +158,8 @@ void UwtCreateWindow()
 
 void UwtDestroyWindow()
 {
+    if (!g_hWnd) return;
+
     ::SendMessage(g_hWnd, WM_CLOSE, 0, 0);
     if (g_thread.joinable())
     {
@@ -168,13 +170,27 @@ void UwtDestroyWindow()
 
 extern "C"
 {
+    UNITY_INTERFACE_EXPORT bool UNITY_INTERFACE_API UwtIsAvailable()
+    {
+        return Tablet::IsAvailable();
+    }
+
+
     UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API UwtInitialize()
     {
         if (g_tablet) return;
 
         Debug::Initialize();
         Wintab::Load();
-        UwtCreateWindow();
+
+        if (Tablet::IsAvailable())
+        {
+            UwtCreateWindow();
+        }
+        else
+        {
+            Debug::Error("Tablet is not connected.");
+        }
     }
 
 

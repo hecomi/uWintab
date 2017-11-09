@@ -7,14 +7,12 @@
 
 bool Tablet::IsAvailable()
 {
-    return Wintab::WTInfo(0, 0, NULL) >= S_OK;
+    return Wintab::WTInfo(0, 0, NULL) != FALSE;
 }
 
 
 Tablet::Tablet()
 {
-    if (!IsAvailable()) return;
-
     // Get version
     SHORT version;
     Wintab::WTInfo(WTI_INTERFACE, IFC_SPECVERSION, &version);
