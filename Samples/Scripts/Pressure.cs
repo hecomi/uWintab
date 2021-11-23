@@ -17,6 +17,8 @@ public class Pressure : MonoBehaviour
 
     void LateUpdate()
     {
+        if (tablet_.deviceNum == 0) return;
+
         transform.localPosition = pen.localPosition;
 
         var pressure = tablet_.pressure;
