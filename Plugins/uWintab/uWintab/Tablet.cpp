@@ -84,7 +84,7 @@ T Tablet::ExtGet(UINT extension, BYTE tabletId, BYTE controlId, BYTE functionId,
 
     if (Wintab::WTExtGet(context_, extension, &prop))
     {
-        return *reinterpret_cast<T*>(&prop.data[0]);
+        return *reinterpret_cast<T *>(&prop.data[0]);
     }
 
     return T();
@@ -102,7 +102,7 @@ bool Tablet::ExtSet(UINT extension, BYTE tabletId, BYTE controlId, BYTE function
     prop.propertyID = property;
     prop.reserved = 0;
     prop.dataSize = sizeof(T);
-    *reinterpret_cast<T*>(&prop.data[0]) = value;
+    *reinterpret_cast<T *>(&prop.data[0]) = value;
 
     return Wintab::WTExtSet(context_, extension, &prop) >= S_OK;
 }
@@ -150,7 +150,7 @@ void Tablet::InitExpKeys()
             }
         }
 
-        auto& keyMap = expKeys_[tabletId];
+        auto &keyMap = expKeys_[tabletId];
         for (UINT controlId = 0; controlId < controlCount; ++controlId)
         {
             keyMap.emplace(controlId, ExpKeyState::Off);

@@ -208,7 +208,7 @@ extern "C"
     }
 
 
-    UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API UwtGetDeviceName(char* buf, int len)
+    UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API UwtGetDeviceName(char *buf, int len)
     {
         if (!g_tablet) return;
         strcpy_s(buf, len, g_tablet->GetDeviceName().c_str());
@@ -242,7 +242,7 @@ extern "C"
     }
 
 
-    UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API UwtGetVersion(char* buf, int len)
+    UNITY_INTERFACE_EXPORT void UNITY_INTERFACE_API UwtGetVersion(char *buf, int len)
     {
         if (!g_tablet) return;
         strcpy_s(buf, len, g_tablet->GetVersion().c_str());

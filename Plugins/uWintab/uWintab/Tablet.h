@@ -48,7 +48,7 @@ public:
     BOOL ReceivePacket(LPARAM lp, WPARAM wp);
     BOOL ReceivePacketExt(LPARAM lp, WPARAM wp);
     void ReceiveProximity(LPARAM lp, WPARAM wp);
-    const std::string & GetDeviceName() const { return deviceName_; }
+    const std::string &GetDeviceName() const { return deviceName_; }
 
     void Overwrap();
     void Enable(WPARAM wp);
@@ -58,7 +58,7 @@ public:
     bool IsOrientationSupported() const { return isOrientationSupported_; }
     bool IsExpKeysSupported() const { return isExpKeysSupported_; }
 
-    const std::string& GetVersion() const { return version_; }
+    const std::string &GetVersion() const { return version_; }
     UINT GetDeviceNum() const { return deviceNum_; }
     UINT GetExpKeyNum(UINT tabletId) const;
     float GetX() const;

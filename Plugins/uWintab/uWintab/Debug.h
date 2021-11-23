@@ -9,8 +9,8 @@
 
 
 // Error handling
-void OutputApiError(const char* apiName);
-void OutputApiError(const char* func, const char* apiName);
+void OutputApiError(const char *apiName);
+void OutputApiError(const char *func, const char *apiName);
 
 
 // Logging
@@ -24,7 +24,7 @@ public:
         UnityLog = 2,
     };
 
-    using DebugLogFuncPtr = void(UNITY_INTERFACE_API *)(const char*);
+    using DebugLogFuncPtr = void(UNITY_INTERFACE_API *)(const char *);
 
     static void SetMode(Mode mode) { mode_ = mode; }
     static void Initialize();
@@ -40,7 +40,7 @@ private:
     };
 
     template <class T>
-    static void Output(T&& arg)
+    static void Output(T &&arg)
     {
         if (mode_ == Mode::None) return;
         if (ss_.good())
@@ -53,43 +53,43 @@ private:
     {
         switch (mode_)
         {
-            case Mode::None:
+        case Mode::None:
+        {
+            return;
+        }
+        case Mode::File:
+        {
+            if (fs_.good() && ss_.good())
             {
-                return;
+                const auto str = ss_.str();
+                fs_ << str << std::endl;
+                fs_.flush();
             }
-            case Mode::File:
+            break;
+        }
+        case Mode::UnityLog:
+        {
+            if (ss_.good())
             {
-                if (fs_.good() && ss_.good())
+                switch (level)
                 {
-                    const auto str = ss_.str();
-                    fs_ << str << std::endl;
-                    fs_.flush();
+                case Level::Log:
+                    if (logFunc_) logFunc_(ss_.str().c_str());
+                    break;
+                case Level::Error:
+                    if (errFunc_) errFunc_(ss_.str().c_str());
+                    break;
                 }
-                break;
             }
-            case Mode::UnityLog:
-            {
-                if (ss_.good())
-                {
-                    switch (level)
-                    {
-                        case Level::Log   : 
-                            if (logFunc_) logFunc_(ss_.str().c_str()); 
-                            break;
-                        case Level::Error : 
-                            if (errFunc_) errFunc_(ss_.str().c_str()); 
-                            break;
-                    }
-                }
-                break;
-            }
+            break;
+        }
         }
         ss_.str("");
         ss_.clear(std::stringstream::goodbit);
     }
 
     template <class Arg, class... RestArgs>
-    static void _Log(Level level, Arg&& arg, RestArgs&&... restArgs)
+    static void _Log(Level level, Arg &&arg, RestArgs&&... restArgs)
     {
         Output(std::forward<Arg>(arg));
         _Log(level, std::forward<RestArgs>(restArgs)...);
@@ -114,7 +114,7 @@ private:
 
 public:
     template <class Arg, class... RestArgs>
-    static void Log(Arg&& arg, RestArgs&&... restArgs)
+    static void Log(Arg &&arg, RestArgs&&... restArgs)
     {
         std::lock_guard<std::mutex> lock(mutex_);
         Output("[uWt::Log]");
@@ -124,7 +124,7 @@ public:
     }
 
     template <class Arg, class... RestArgs>
-    static void Error(Arg&& arg, RestArgs&&... restArgs)
+    static void Error(Arg &&arg, RestArgs&&... restArgs)
     {
         std::lock_guard<std::mutex> lock(mutex_);
         Output("[uWt::Err]");

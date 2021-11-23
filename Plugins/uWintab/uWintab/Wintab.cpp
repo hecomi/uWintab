@@ -4,7 +4,7 @@
 
 namespace
 {
-    constexpr const char* kDllName = "Wintab32.dll";
+    constexpr const char *kDllName = "Wintab32.dll";
 }
 
 

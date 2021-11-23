@@ -7,4 +7,4 @@
 #include <Wintab/pktdef.h>
 #include <Wintab/msgpack.h>
 
-constexpr const char* kLibraryName = "uWintab";
+constexpr const char *kLibraryName = "uWintab";
