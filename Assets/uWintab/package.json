@@ -1,0 +1,28 @@
+{
+    "name": "com.hecomi.uwintab",
+    "version": "1.0.0",
+    "displayName": "uWintab",
+    "description": "Wintab API plugin for Unity",
+    "author": {
+        "name": "hecomi",
+        "url": "https://tips.hecomi.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hecomi/uWintab"
+    },
+    "keywords": [
+        "unity",
+        "wintab",
+        "pen-tablet",
+        "native-plugin"
+    ],
+    "license": "MIT License",
+    "samples": [
+        {
+            "displayName": "Samples",
+            "description": "Collection of samples for uWintab",
+            "path": "Samples~"
+        }
+    ]
+}

@@ -21,6 +21,8 @@ public class Pen : MonoBehaviour
 
     void Update()
     {
+        if (tablet_.deviceNum == 0) return;
+
         UpdatePosition();
         UpdateRotation();
     }

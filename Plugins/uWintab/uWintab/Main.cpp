@@ -1,6 +1,7 @@
 #include <Windows.h>
 #include <memory>
 #include <thread>
+#include <cassert>
 #include <Unity/IUnityInterface.h>
 #include "Wintab.h"
 #include "Common.h"
@@ -149,6 +150,8 @@ void UwtThreadFunc()
 
 void UwtCreateWindow()
 {
+    assert(!g_thread.joinable());
+
     g_thread = std::thread([]
     {
         UwtThreadFunc();
@@ -161,6 +164,7 @@ void UwtDestroyWindow()
     if (!g_hWnd) return;
 
     ::SendMessage(g_hWnd, WM_CLOSE, 0, 0);
+
     if (g_thread.joinable())
     {
         g_thread.join();
